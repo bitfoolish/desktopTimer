@@ -3,7 +3,9 @@ import time
 
 targetPercentage = 80 # 80% target charge
 
-#stats = (battery.status)
+if not battery.status['isCharging']: # exit program as user doesn't have their device charging
+    raise ValueError("Plug in your charger and run again!\n")
+
 while battery.status['isCharging']: # when charger is on 
     percent = battery.status['percentage']
 
@@ -19,13 +21,13 @@ while battery.status['isCharging']: # when charger is on
             title="Keep going", 
             message="Battery at " + str(percent) + "%, " + str(targetPercentage - percent) + " to go",
         )
-        if(percent < 60): # if less than 60% sleep until likely around 60
-            time.sleep((60 - percent) * 60)
-        else: # between 60 and 80 just sleep in 5 min intervals
+        if(percent < 70): # if less than 70% sleep until likely around 70
+            time.sleep((70 - percent) * 60)
+        else: # between 70 and 80 just sleep until predicated finish time
             probableTimeLeft = (targetPercentage - percent) + 2 
             notification.notify(
                 title="Around " + str(probableTimeLeft) + " mins left",
                 message="Current percentage --> " + str(percent) + "%"
             )
+            print(probableTimeLeft)
             time.sleep(probableTimeLeft*60)
-
