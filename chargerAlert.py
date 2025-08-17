@@ -1,18 +1,31 @@
 from plyer import battery, notification
+import time
 
-stats = (battery.status)
+targetPercentage = 80 # 80% target charge
 
-if battery.status['percentage'] >= 80: # battery level at 80 or above
-    notification.notify(
-        title="Battery has reached 80%", 
-        message="Disconnect charger!"
-    )
+#stats = (battery.status)
+while battery.status['isCharging']: # when charger is on 
+    percent = battery.status['percentage']
 
-else:
-    notification.notify(
-        title="battery very low", 
-        message="charge me up",
-    )
-#    print("battery too low")
+    if percent >= targetPercentage: # battery level at 80 or above
+        notification.notify(
+            title="Battery has reached " + str(targetPercentage) + "%", 
+            message="Disconnect charger --->  " + str(percent) + " %",
+        )
+        time.sleep(3*60) # send reminder every 3 minutes to unplug charger
 
-## while loop until it no longer charging, maybe sleep for 5 mins and only notify once at 80
+    else: # battery not yet at target percentage
+        notification.notify(
+            title="Keep going", 
+            message="Battery at " + str(percent) + "%, " + str(targetPercentage - percent) + " to go",
+        )
+        if(percent < 60): # if less than 60% sleep until likely around 60
+            time.sleep((60 - percent) * 60)
+        else: # between 60 and 80 just sleep in 5 min intervals
+            probableTimeLeft = (targetPercentage - percent) + 2 
+            notification.notify(
+                title="Around " + str(probableTimeLeft) + " mins left",
+                message="Current percentage --> " + str(percent) + "%"
+            )
+            time.sleep(probableTimeLeft*60)
+
