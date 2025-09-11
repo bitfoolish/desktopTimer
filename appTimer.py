@@ -30,7 +30,7 @@ def startTimer():
 def decreaseTimer(minsRqst,secsRqst,total):
     
     if(total == 0):
-        return(timeRemLabel.config(text="0:0"))
+        return(timeRemLabel.config(text="Time's up"))
 
     else:       
         if((secsRqst.get() == 0) and not (minsRqst == 0)):
@@ -101,5 +101,5 @@ secsEntry.pack() # Appears on startup, where user enters second count
 timeRemLabel.pack()
 startButton.pack()
 
-terminateProgram.pack()
+terminateProgram.pack() # can click anytime to end program/timer
 window.mainloop()
