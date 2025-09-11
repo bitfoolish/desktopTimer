@@ -8,43 +8,44 @@ window.config(bg="#9B3B34")
 
 minsRqst=tk.IntVar()
 secsRqst=tk.IntVar()
+minsRqst.set(0)
+secsRqst.set(0)
 
 
 def startTimer():
     mins=minsRqst.get()
     secs=secsRqst.get()
+    #print(type(secs))
 
-    print(f"mins: {mins}")
-    print(f"secs: {secs}")
+
+    print(f"mins: {minsRqst.get()}")
+    print(f"secs: {secsRqst.get()}")
 
 
     total = ((60*mins) + secs)
     print(total)
 
-    decreaseTimer(mins,secs,total)
+    decreaseTimer(minsRqst,secsRqst,total)
 
-#    time.sleep(total)
-
-def decreaseTimer(mins,secs,total):
+def decreaseTimer(minsRqst,secsRqst,total):
     
-    if(secs == 0):
-        secs = 59
-        mins -= 1
-
-    else:
-        secs -= 1
-
-    minsLabel = tk.Label(
-        text="Mins: " + str(mins) + "Secs: " + str(secs)
-    )
-
-    minsLabel.pack()
-#    time.sleep(1) 
-    total -= 1
     if(total == 0):
-        return None
-    else:
-        decreaseTimer(mins,secs,total)
+        return(timeRemLabel.config(text="0:0"))
+
+    else:       
+        if((secsRqst.get() == 0) and not (minsRqst == 0)):
+    #        print(type(secs))
+            secsRqst.set(59)
+            minsRqst.set(minsRqst.get() - 1)
+
+        else:
+            #print(type(secs))
+            secsRqst.set(secsRqst.get() - 1)
+
+        timeRemLabel.config(text=f"{minsRqst.get():02d}:{secsRqst.get():02d}")
+        
+    window.after(1000, decreaseTimer, minsRqst, secsRqst, total-1) 
+
 
 welcome = tk.Label(
     text="Please enter your desired time below",
@@ -85,14 +86,20 @@ secsEntry = tk.Entry(
 )
 
 
+timeRemLabel = tk.Label(
+    text=f"{minsRqst.get()}:{secsRqst.get()}"
+)
+
 welcome.pack()
+
+minsLabel.pack() # Appears on startup
+minsEntry.pack() # Appears on startup, where user enters minute count
+
+secsLabel.pack() # Appears on startup
+secsEntry.pack() # Appears on startup, where user enters second count
+
+timeRemLabel.pack()
 startButton.pack()
-
-minsLabel.pack()
-minsEntry.pack()
-
-secsLabel.pack()
-secsEntry.pack()
 
 terminateProgram.pack()
 window.mainloop()
