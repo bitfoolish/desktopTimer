@@ -29,17 +29,15 @@ def startTimer():
 
 def decreaseTimer(minsRqst,secsRqst,total):
     
-    if(total == 0):
+    if(total == 0): # when timer reaches 0
         return(timeRemLabel.config(text="Time's up"))
 
     else:       
         if((secsRqst.get() == 0) and not (minsRqst == 0)):
-    #        print(type(secs))
             secsRqst.set(59)
             minsRqst.set(minsRqst.get() - 1)
 
         else:
-            #print(type(secs))
             secsRqst.set(secsRqst.get() - 1)
 
         timeRemLabel.config(text=f"{minsRqst.get():02d}:{secsRqst.get():02d}")
