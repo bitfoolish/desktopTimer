@@ -49,12 +49,33 @@ class Timer:
         self.minsEntry.pack() # where user enters minute count
         self.secsLabel.pack()
         self.secsEntry.pack() # where user enters second count
+        self.secsEntry.bind("<FocusIn>", self.handleSecsEntryFocus)
+        self.minsEntry.bind("<FocusIn>", self.handleMinsEntryFocus)
+        self.secsEntry.bind("<FocusOut>", self.handleSecsEntryOutOfFocus)
+        self.minsEntry.bind("<FocusOut>", self.handleMinsEntryOutOfFocus)
 
         self.timeRemLabel.pack()
         self.startButton.pack() # user clicks to begin timer
 
         self.terminateProgram.pack() # can click anytime to end program/timer
         self.window.mainloop()
+
+    def handleSecsEntryFocus(self, event):
+        print(type(self.secsEntry.get()))
+        if self.secsEntry.get() == '0':
+            self.secsEntry.delete(0,tk.END)
+
+    def handleSecsEntryOutOfFocus(self, event):
+        if self.secsEntry.get() == '':
+            self.secsEntry.insert(0, 0)        
+
+    def handleMinsEntryFocus(self, event):
+        if self.minsEntry.get() == '0':
+            self.minsEntry.delete(0,tk.END)
+
+    def handleMinsEntryOutOfFocus(self, event):
+        if self.minsEntry.get() == '':
+            self.minsEntry.insert(0, 0)      
 
     # method to start timer
     def startTimer(self):
