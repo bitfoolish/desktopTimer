@@ -67,15 +67,15 @@ class Timer:
 
     def handleSecsEntryOutOfFocus(self, event):
         if self.secsEntry.get() == '':
-            self.secsEntry.insert(0, 0)        
+            self.secsEntry.insert(0, '0')        ############# should this be '0' or 0, does it matter??
 
     def handleMinsEntryFocus(self, event):
-        if self.minsEntry.get() == '0':
+        if (self.minsEntry.get() == '0') and (self.secsEntry.get() == '' or self.secsEntry.get() == '0'):
             self.minsEntry.delete(0,tk.END)
 
     def handleMinsEntryOutOfFocus(self, event):
         if self.minsEntry.get() == '':
-            self.minsEntry.insert(0, 0)      
+            self.minsEntry.insert(0, '0')        ############# should this be '0' or 0, does it matter??
 
     # method to start timer
     def startTimer(self):
