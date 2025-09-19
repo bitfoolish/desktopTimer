@@ -10,8 +10,9 @@ class Timer:
 
         self.minsRqst=tk.IntVar() #
         self.secsRqst=tk.IntVar()
-        self.minsRqst.set(0)
-        self.secsRqst.set(0)
+
+#        self.minsRqst.set()
+ #       self.secsRqst.set(1)
 
         self.welcome = tk.Label(text="Please enter your desired time below", fg="black") # Welcome message to user at top of program
 
@@ -40,7 +41,7 @@ class Timer:
         self.secsEntry = tk.Entry(textvariable=self.secsRqst) # textbox for user to enter desired minute count, input saved in variable
 
 
-        self.timeRemLabel = tk.Label( text=f"{self.minsRqst.get()}:{self.secsRqst.get()}" ) # displays how long is currently left
+        self.timeRemLabel = tk.Label( text=f"{self.minsRqst.get():02d}:{self.secsRqst.get():02d}" ) # displays how long is currently left
 
         # Appears on startup
         self.welcome.pack()
