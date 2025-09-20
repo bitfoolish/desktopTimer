@@ -35,6 +35,12 @@ class Timer:
             command=self.window.destroy
         )
 
+        self.userTimerName = tk.StringVar()
+
+        self.nameTimer = tk.Entry(
+            textvariable=self.userTimerName,
+            justify="center")
+
         
         self.minsLabel = tk.Label(text="Minutes: ")
         self.minsEntry = tk.Entry(textvariable= self.minsRqst) # textbox for user to enter desired minute count, input saved in variable
@@ -59,6 +65,7 @@ class Timer:
         self.startButton.pack() # user clicks to begin timer
 
         self.terminateProgram.pack() # can click anytime to end program/timer
+        self.nameTimer.pack(pady=(20))
         self.window.mainloop()
 
     def handleSecsEntryFocus(self, event):
