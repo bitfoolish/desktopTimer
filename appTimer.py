@@ -7,6 +7,7 @@ class Timer:
     def __init__(self):
         self.window = tk.Tk() 
         self.window.config(bg="#9B3B34") # background colour for timer app
+        self.window.geometry('300x200')
 
         self.minsRqst=tk.IntVar() #
         self.secsRqst=tk.IntVar()
@@ -61,7 +62,6 @@ class Timer:
         self.window.mainloop()
 
     def handleSecsEntryFocus(self, event):
-        print(type(self.secsEntry.get()))
         if self.secsEntry.get() == '0':
             self.secsEntry.delete(0,tk.END)
 
@@ -93,7 +93,7 @@ class Timer:
     def decreaseTimer(self, minsRqst,secsRqst,total):
         if(total == 0): # when timer reaches 0
             self.notify() # notify the user
-            return(self.timeRemLabel.config(text="Time's up")) 
+            return(self.timeRemLabel.config(text="Time's up", font=("Times New Roman", 12, "bold"), width=40, bg="#FF991C")) # Stretch Label to near edges, change font
         
         else:       
             if((secsRqst.get() == 0) and not (minsRqst == 0)): # E.g. when we reach 1:00 --> 0:59
@@ -114,8 +114,8 @@ class Timer:
             app_icon='',
             app_name='Timer App'
         )
-        playsound('../Soundd-1-1.m4a')
-        playsound('../Soundd-1-1.m4a')
+       # playsound('../Soundd-1-1.m4a')
+        #playsound('../Soundd-1-1.m4a')
 
 
 if __name__ == "__main__":
